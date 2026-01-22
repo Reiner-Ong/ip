@@ -6,7 +6,34 @@ What can I do for you?
 Here are the tasks in your list:
 ---------------------------
 ---------------------------
-Unknown command: blah
+OOPS!!! I don't know what 'blah' means. Try: todo, deadline, event, list, mark, unmark, or bye.
+---------------------------
+---------------------------
+OOPS!!! The description of a todo cannot be empty. Usage: todo <description>
+---------------------------
+---------------------------
+OOPS!!! The description of a deadline cannot be empty. Usage: deadline <description> /by <date>
+---------------------------
+---------------------------
+OOPS!!! A deadline needs a due date. Usage: deadline <description> /by <date>
+---------------------------
+---------------------------
+OOPS!!! The description of a deadline cannot be empty. Usage: deadline <description> /by <date>
+---------------------------
+---------------------------
+OOPS!!! The description of an event cannot be empty. Usage: event <description> /from <start> /to <end>
+---------------------------
+---------------------------
+OOPS!!! An event needs an end time. Usage: event <description> /from <start> /to <end>
+---------------------------
+---------------------------
+OOPS!!! Please specify which task to mark. Usage: mark <task number>
+---------------------------
+---------------------------
+OOPS!!! Your task list is empty. Add some tasks first!
+---------------------------
+---------------------------
+OOPS!!! 'abc' is not a valid number. Please enter a task number (e.g., 1, 2, 3).
 ---------------------------
 ---------------------------
 Got it. I've added this task:
@@ -82,10 +109,10 @@ Here are the tasks in your list:
 6.[E][ ] orientation week (from: Aug 6th to: Aug 13th)
 ---------------------------
 ---------------------------
-Invalid task number.
+OOPS!!! Task number 100 does not exist. You have 6 task(s). Please enter a number between 1 and 6.
 ---------------------------
 ---------------------------
-Invalid task number.
+OOPS!!! Task number 100 does not exist. You have 6 task(s). Please enter a number between 1 and 6.
 ---------------------------
 ---------------------------
 Got it. I've added this task:

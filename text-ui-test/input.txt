@@ -1,5 +1,14 @@
 list
 blah
+todo
+deadline
+deadline homework
+deadline /by Sunday
+event
+event meeting /from Mon
+mark
+mark 1
+mark abc
 todo read book
 todo join sports club
 deadline return book /by Sunday
