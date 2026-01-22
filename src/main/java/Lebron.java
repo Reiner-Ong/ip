@@ -38,23 +38,48 @@ public class Lebron {
         } else if (input.startsWith("unmark ")) {
             int index = Integer.parseInt(input.substring(7)) - 1;
             markItemAsNotDone(index);
+        } else if (input.startsWith("todo ")) {
+            addTodo(input.substring(5));
+        } else if (input.startsWith("deadline ")) {
+            String[] parts = input.substring(9).split(" /by ");
+            addDeadline(parts[0], parts[1]);
+        } else if (input.startsWith("event ")) {
+            String[] parts = input.substring(6).split(" /from | /to ");
+            addEvent(parts[0], parts[1], parts[2]);
         } else {
-            addToList(input);
+            System.out.println("Unknown command: " + input);
         }
         System.out.println("---------------------------");
     }
 
-    private static void addToList(String item) {
-        Task newTask = new Task(item);
+    private static void addTodo(String description) {
+        Task newTask = new Todo(description);
         itemList.add(newTask);
-        System.out.println("added: " + newTask.getDescription());
+        printTaskAdded(newTask);
+    }
+
+    private static void addDeadline(String description, String by) {
+        Task newTask = new Deadline(description, by);
+        itemList.add(newTask);
+        printTaskAdded(newTask);
+    }
+
+    private static void addEvent(String description, String from, String to) {
+        Task newTask = new Event(description, from, to);
+        itemList.add(newTask);
+        printTaskAdded(newTask);
+    }
+
+    private static void printTaskAdded(Task task) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + itemList.size() + " tasks in the list.");
     }
 
     private static void showList() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < itemList.size(); i++) {
-            Task item = itemList.get(i);
-            System.out.println((i + 1) + "." + item.getStatusIcon()
-                    + " " + item.getDescription());
+            System.out.println((i + 1) + "." + itemList.get(i));
         }
     }
 
@@ -63,7 +88,7 @@ public class Lebron {
             Task item = itemList.get(index);
             item.markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + item.getStatusIcon() + " " + item.getDescription());
+            System.out.println("  " + item);
         } else {
             System.out.println("Invalid task number.");
         }
@@ -74,7 +99,7 @@ public class Lebron {
             Task item = itemList.get(index);
             item.markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + item.getStatusIcon() + " " + item.getDescription());
+            System.out.println("  " + item);
         } else {
             System.out.println("Invalid task number.");
         }

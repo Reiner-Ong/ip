@@ -2,8 +2,8 @@
  * Represents a task with a description and completion status.
  */
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Creates a new task with the given description.
@@ -27,8 +27,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getDescription() {
-        return this.description;
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + description;
     }
-
 }
