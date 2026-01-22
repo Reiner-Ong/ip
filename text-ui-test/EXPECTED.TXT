@@ -6,7 +6,7 @@ Let's get this W. What you need?
 Here's the game plan:
 ---------------------------
 ---------------------------
-Ayo that's a brick! I don't know what 'blah' means, my guy. Try: todo, deadline, event, list, mark, unmark, or bye.
+Ayo that's a brick! I don't know what 'blah' means, my guy. Try: todo, deadline, event, list, mark, unmark, delete, or bye.
 ---------------------------
 ---------------------------
 Ayo that's a brick! You can't score without the ball! Give me a description: todo <description>
@@ -120,14 +120,27 @@ Locked in! I added this to the game plan:
 Now you got 7 tasks on the board.
 ---------------------------
 ---------------------------
+Ayo that's a brick! Who we cutting from the roster? Tell me the task number: delete <number>
+---------------------------
+---------------------------
+Ayo that's a brick! 'abc' ain't a number! Give me a real number like 1, 2, or 3.
+---------------------------
+---------------------------
+Ayo that's a brick! Task 100 doesn't exist! You got 7 task(s). Pick a number between 1 and 7.
+---------------------------
+---------------------------
+Traded away! I've removed this task:
+  [D][X] return book (by: Sunday)
+Now you got 6 tasks on the board.
+---------------------------
+---------------------------
 Here's the game plan:
 1.[T][ ] read book
 2.[T][ ] join sports club
-3.[D][X] return book (by: Sunday)
-4.[D][ ] submit report (by: Monday 5pm)
-5.[E][X] project meeting (from: Mon 2pm to: 4pm)
-6.[E][ ] orientation week (from: Aug 6th to: Aug 13th)
-7.[T][ ] borrow book
+3.[D][ ] submit report (by: Monday 5pm)
+4.[E][X] project meeting (from: Mon 2pm to: 4pm)
+5.[E][ ] orientation week (from: Aug 6th to: Aug 13th)
+6.[T][ ] borrow book
 ---------------------------
 ---------------------------
 Alright, I'm out. Stay locked in, we got more wins to chase!

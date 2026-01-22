@@ -25,5 +25,9 @@ list
 mark 100
 unmark 100
 todo borrow book
+delete
+delete abc
+delete 100
+delete 3
 list
 bye

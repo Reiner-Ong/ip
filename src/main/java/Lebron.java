@@ -51,9 +51,11 @@ public class Lebron {
             handleDeadline(input);
         } else if (input.startsWith("event")) {
             handleEvent(input);
+        } else if (input.startsWith("delete")) {
+            handleDelete(input);
         } else {
             throw new LebronException("I don't know what '" + input + "' means, my guy. "
-                    + "Try: todo, deadline, event, list, mark, unmark, or bye.");
+                    + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
         }
     }
 
@@ -144,6 +146,24 @@ public class Lebron {
         int index = parseTaskNumber(numberStr) - 1;
         validateTaskIndex(index);
         markItemAsNotDone(index);
+    }
+
+    private static void handleDelete(String input) throws LebronException {
+        if (input.equals("delete") || input.equals("delete ")) {
+            throw new LebronException("Who we cutting from the roster? "
+                    + "Tell me the task number: delete <number>");
+        }
+        String numberStr = input.substring(7).trim();
+        int index = parseTaskNumber(numberStr) - 1;
+        validateTaskIndex(index);
+        deleteTask(index);
+    }
+
+    private static void deleteTask(int index) {
+        Task removed = itemList.remove(index);
+        System.out.println("Traded away! I've removed this task:");
+        System.out.println("  " + removed);
+        System.out.println("Now you got " + itemList.size() + " tasks on the board.");
     }
 
     private static int parseTaskNumber(String numberStr) throws LebronException {
