@@ -9,10 +9,10 @@ public class Lebron {
 
     public static void main(String[] args) {
         System.out.println("---------------------------");
-        System.out.println("Hello! I'm Lebron James");
-        System.out.println("What can I do for you?");
+        System.out.println("Yo, what's good! I'm King James.");
+        System.out.println("Let's get this W. What you need?");
         System.out.println("---------------------------");
-        
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -31,14 +31,14 @@ public class Lebron {
         try {
             processCommand(input);
         } catch (LebronException e) {
-            System.out.println("OOPS!!! " + e.getMessage());
+            System.out.println("Ayo that's a brick! " + e.getMessage());
         }
         System.out.println("---------------------------");
     }
 
     private static void processCommand(String input) throws LebronException {
         if (input.equals("bye")) {
-            System.out.println("Bye. Hope to see you again soon!");
+            System.out.println("Alright, I'm out. Stay locked in, we got more wins to chase!");
         } else if (input.equals("list")) {
             showList();
         } else if (input.startsWith("mark")) {
@@ -52,82 +52,82 @@ public class Lebron {
         } else if (input.startsWith("event")) {
             handleEvent(input);
         } else {
-            throw new LebronException("I don't know what '" + input + "' means. "
+            throw new LebronException("I don't know what '" + input + "' means, my guy. "
                     + "Try: todo, deadline, event, list, mark, unmark, or bye.");
         }
     }
 
     private static void handleTodo(String input) throws LebronException {
         if (input.equals("todo") || input.equals("todo ")) {
-            throw new LebronException("The description of a todo cannot be empty. "
-                    + "Usage: todo <description>");
+            throw new LebronException("You can't score without the ball! "
+                    + "Give me a description: todo <description>");
         }
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
-            throw new LebronException("The description of a todo cannot be empty. "
-                    + "Usage: todo <description>");
+            throw new LebronException("You can't score without the ball! "
+                    + "Give me a description: todo <description>");
         }
         addTodo(description);
     }
 
     private static void handleDeadline(String input) throws LebronException {
         if (input.equals("deadline") || input.equals("deadline ")) {
-            throw new LebronException("The description of a deadline cannot be empty. "
-                    + "Usage: deadline <description> /by <date>");
+            throw new LebronException("Empty plays don't win championships! "
+                    + "Try: deadline <description> /by <date>");
         }
         String content = input.substring(9).trim();
         if (!content.contains("/by")) {
-            throw new LebronException("A deadline needs a due date. "
-                    + "Usage: deadline <description> /by <date>");
+            throw new LebronException("When's the buzzer? I need a deadline! "
+                    + "Try: deadline <description> /by <date>");
         }
         String[] parts = content.split(" ?/by ?", 2);
         String description = parts[0].trim();
         if (description.isEmpty()) {
-            throw new LebronException("The description of a deadline cannot be empty. "
-                    + "Usage: deadline <description> /by <date>");
+            throw new LebronException("What's the play? Give me a description! "
+                    + "Try: deadline <description> /by <date>");
         }
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LebronException("The due date of a deadline cannot be empty. "
-                    + "Usage: deadline <description> /by <date>");
+            throw new LebronException("When's the buzzer? I need a due date! "
+                    + "Try: deadline <description> /by <date>");
         }
         addDeadline(description, parts[1].trim());
     }
 
     private static void handleEvent(String input) throws LebronException {
         if (input.equals("event") || input.equals("event ")) {
-            throw new LebronException("The description of an event cannot be empty. "
-                    + "Usage: event <description> /from <start> /to <end>");
+            throw new LebronException("Can't show up to a game with no game plan! "
+                    + "Try: event <description> /from <start> /to <end>");
         }
         String content = input.substring(6).trim();
         if (!content.contains("/from")) {
-            throw new LebronException("An event needs a start time. "
-                    + "Usage: event <description> /from <start> /to <end>");
+            throw new LebronException("When's tip-off? I need a start time! "
+                    + "Try: event <description> /from <start> /to <end>");
         }
         if (!content.contains("/to")) {
-            throw new LebronException("An event needs an end time. "
-                    + "Usage: event <description> /from <start> /to <end>");
+            throw new LebronException("When's the final buzzer? I need an end time! "
+                    + "Try: event <description> /from <start> /to <end>");
         }
         String[] parts = content.split(" ?/from ?| ?/to ?", 3);
         String description = parts[0].trim();
         if (description.isEmpty()) {
-            throw new LebronException("The description of an event cannot be empty. "
-                    + "Usage: event <description> /from <start> /to <end>");
+            throw new LebronException("What's the event? Give me a description! "
+                    + "Try: event <description> /from <start> /to <end>");
         }
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LebronException("The start time of an event cannot be empty. "
-                    + "Usage: event <description> /from <start> /to <end>");
+            throw new LebronException("When's tip-off? I need a start time! "
+                    + "Try: event <description> /from <start> /to <end>");
         }
         if (parts.length < 3 || parts[2].trim().isEmpty()) {
-            throw new LebronException("The end time of an event cannot be empty. "
-                    + "Usage: event <description> /from <start> /to <end>");
+            throw new LebronException("When's the final buzzer? I need an end time! "
+                    + "Try: event <description> /from <start> /to <end>");
         }
         addEvent(description, parts[1].trim(), parts[2].trim());
     }
 
     private static void handleMark(String input) throws LebronException {
         if (input.equals("mark") || input.equals("mark ")) {
-            throw new LebronException("Please specify which task to mark. "
-                    + "Usage: mark <task number>");
+            throw new LebronException("Which play we running? "
+                    + "Tell me the task number: mark <number>");
         }
         String numberStr = input.substring(5).trim();
         int index = parseTaskNumber(numberStr) - 1;
@@ -137,8 +137,8 @@ public class Lebron {
 
     private static void handleUnmark(String input) throws LebronException {
         if (input.equals("unmark") || input.equals("unmark ")) {
-            throw new LebronException("Please specify which task to unmark. "
-                    + "Usage: unmark <task number>");
+            throw new LebronException("Which one we taking back? "
+                    + "Tell me the task number: unmark <number>");
         }
         String numberStr = input.substring(7).trim();
         int index = parseTaskNumber(numberStr) - 1;
@@ -150,19 +150,19 @@ public class Lebron {
         try {
             return Integer.parseInt(numberStr);
         } catch (NumberFormatException e) {
-            throw new LebronException("'" + numberStr + "' is not a valid number. "
-                    + "Please enter a task number (e.g., 1, 2, 3).");
+            throw new LebronException("'" + numberStr + "' ain't a number! "
+                    + "Give me a real number like 1, 2, or 3.");
         }
     }
 
     private static void validateTaskIndex(int index) throws LebronException {
         if (itemList.isEmpty()) {
-            throw new LebronException("Your task list is empty. Add some tasks first!");
+            throw new LebronException("The roster's empty! Add some tasks first, my guy.");
         }
         if (index < 0 || index >= itemList.size()) {
-            throw new LebronException("Task number " + (index + 1) + " does not exist. "
-                    + "You have " + itemList.size() + " task(s). "
-                    + "Please enter a number between 1 and " + itemList.size() + ".");
+            throw new LebronException("Task " + (index + 1) + " doesn't exist! "
+                    + "You got " + itemList.size() + " task(s). "
+                    + "Pick a number between 1 and " + itemList.size() + ".");
         }
     }
 
@@ -185,13 +185,13 @@ public class Lebron {
     }
 
     private static void printTaskAdded(Task task) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Locked in! I added this to the game plan:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + itemList.size() + " tasks in the list.");
+        System.out.println("Now you got " + itemList.size() + " tasks on the board.");
     }
 
     private static void showList() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here's the game plan:");
         for (int i = 0; i < itemList.size(); i++) {
             System.out.println((i + 1) + "." + itemList.get(i));
         }
@@ -200,14 +200,14 @@ public class Lebron {
     private static void markItemAsDone(int index) {
         Task item = itemList.get(index);
         item.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("That's a W! Task complete:");
         System.out.println("  " + item);
     }
 
     private static void markItemAsNotDone(int index) {
         Task item = itemList.get(index);
         item.markAsNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("Aight, we running it back. Task unmarked:");
         System.out.println("  " + item);
     }
 }

@@ -1,72 +1,72 @@
 ---------------------------
-Hello! I'm Lebron James
-What can I do for you?
+Yo, what's good! I'm King James.
+Let's get this W. What you need?
 ---------------------------
 ---------------------------
-Here are the tasks in your list:
+Here's the game plan:
 ---------------------------
 ---------------------------
-OOPS!!! I don't know what 'blah' means. Try: todo, deadline, event, list, mark, unmark, or bye.
+Ayo that's a brick! I don't know what 'blah' means, my guy. Try: todo, deadline, event, list, mark, unmark, or bye.
 ---------------------------
 ---------------------------
-OOPS!!! The description of a todo cannot be empty. Usage: todo <description>
+Ayo that's a brick! You can't score without the ball! Give me a description: todo <description>
 ---------------------------
 ---------------------------
-OOPS!!! The description of a deadline cannot be empty. Usage: deadline <description> /by <date>
+Ayo that's a brick! Empty plays don't win championships! Try: deadline <description> /by <date>
 ---------------------------
 ---------------------------
-OOPS!!! A deadline needs a due date. Usage: deadline <description> /by <date>
+Ayo that's a brick! When's the buzzer? I need a deadline! Try: deadline <description> /by <date>
 ---------------------------
 ---------------------------
-OOPS!!! The description of a deadline cannot be empty. Usage: deadline <description> /by <date>
+Ayo that's a brick! What's the play? Give me a description! Try: deadline <description> /by <date>
 ---------------------------
 ---------------------------
-OOPS!!! The description of an event cannot be empty. Usage: event <description> /from <start> /to <end>
+Ayo that's a brick! Can't show up to a game with no game plan! Try: event <description> /from <start> /to <end>
 ---------------------------
 ---------------------------
-OOPS!!! An event needs an end time. Usage: event <description> /from <start> /to <end>
+Ayo that's a brick! When's the final buzzer? I need an end time! Try: event <description> /from <start> /to <end>
 ---------------------------
 ---------------------------
-OOPS!!! Please specify which task to mark. Usage: mark <task number>
+Ayo that's a brick! Which play we running? Tell me the task number: mark <number>
 ---------------------------
 ---------------------------
-OOPS!!! Your task list is empty. Add some tasks first!
+Ayo that's a brick! The roster's empty! Add some tasks first, my guy.
 ---------------------------
 ---------------------------
-OOPS!!! 'abc' is not a valid number. Please enter a task number (e.g., 1, 2, 3).
+Ayo that's a brick! 'abc' ain't a number! Give me a real number like 1, 2, or 3.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [T][ ] read book
-Now you have 1 tasks in the list.
+Now you got 1 tasks on the board.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [T][ ] join sports club
-Now you have 2 tasks in the list.
+Now you got 2 tasks on the board.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [D][ ] return book (by: Sunday)
-Now you have 3 tasks in the list.
+Now you got 3 tasks on the board.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [D][ ] submit report (by: Monday 5pm)
-Now you have 4 tasks in the list.
+Now you got 4 tasks on the board.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 5 tasks in the list.
+Now you got 5 tasks on the board.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [E][ ] orientation week (from: Aug 6th to: Aug 13th)
-Now you have 6 tasks in the list.
+Now you got 6 tasks on the board.
 ---------------------------
 ---------------------------
-Here are the tasks in your list:
+Here's the game plan:
 1.[T][ ] read book
 2.[T][ ] join sports club
 3.[D][ ] return book (by: Sunday)
@@ -75,15 +75,15 @@ Here are the tasks in your list:
 6.[E][ ] orientation week (from: Aug 6th to: Aug 13th)
 ---------------------------
 ---------------------------
-Nice! I've marked this task as done:
+That's a W! Task complete:
   [T][X] read book
 ---------------------------
 ---------------------------
-Nice! I've marked this task as done:
+That's a W! Task complete:
   [D][X] return book (by: Sunday)
 ---------------------------
 ---------------------------
-Here are the tasks in your list:
+Here's the game plan:
 1.[T][X] read book
 2.[T][ ] join sports club
 3.[D][X] return book (by: Sunday)
@@ -92,15 +92,15 @@ Here are the tasks in your list:
 6.[E][ ] orientation week (from: Aug 6th to: Aug 13th)
 ---------------------------
 ---------------------------
-OK, I've marked this task as not done yet:
+Aight, we running it back. Task unmarked:
   [T][ ] read book
 ---------------------------
 ---------------------------
-Nice! I've marked this task as done:
+That's a W! Task complete:
   [E][X] project meeting (from: Mon 2pm to: 4pm)
 ---------------------------
 ---------------------------
-Here are the tasks in your list:
+Here's the game plan:
 1.[T][ ] read book
 2.[T][ ] join sports club
 3.[D][X] return book (by: Sunday)
@@ -109,18 +109,18 @@ Here are the tasks in your list:
 6.[E][ ] orientation week (from: Aug 6th to: Aug 13th)
 ---------------------------
 ---------------------------
-OOPS!!! Task number 100 does not exist. You have 6 task(s). Please enter a number between 1 and 6.
+Ayo that's a brick! Task 100 doesn't exist! You got 6 task(s). Pick a number between 1 and 6.
 ---------------------------
 ---------------------------
-OOPS!!! Task number 100 does not exist. You have 6 task(s). Please enter a number between 1 and 6.
+Ayo that's a brick! Task 100 doesn't exist! You got 6 task(s). Pick a number between 1 and 6.
 ---------------------------
 ---------------------------
-Got it. I've added this task:
+Locked in! I added this to the game plan:
   [T][ ] borrow book
-Now you have 7 tasks in the list.
+Now you got 7 tasks on the board.
 ---------------------------
 ---------------------------
-Here are the tasks in your list:
+Here's the game plan:
 1.[T][ ] read book
 2.[T][ ] join sports club
 3.[D][X] return book (by: Sunday)
@@ -130,5 +130,5 @@ Here are the tasks in your list:
 7.[T][ ] borrow book
 ---------------------------
 ---------------------------
-Bye. Hope to see you again soon!
+Alright, I'm out. Stay locked in, we got more wins to chase!
 ---------------------------
