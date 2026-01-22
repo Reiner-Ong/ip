@@ -1,0 +1,20 @@
+list
+blah
+todo read book
+todo join sports club
+deadline return book /by Sunday
+deadline submit report /by Monday 5pm
+event project meeting /from Mon 2pm /to 4pm
+event orientation week /from Aug 6th /to Aug 13th
+list
+mark 1
+mark 3
+list
+unmark 1
+mark 5
+list
+mark 100
+unmark 100
+todo borrow book
+list
+bye
