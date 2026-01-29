@@ -1,13 +1,20 @@
+package lebron;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Main class for the Lebron chatbot application.
+ * This chatbot helps users manage their tasks with a basketball-themed personality.
  */
 public class Lebron {
+    private static final String FILE_PATH = "./src/main/java/data/lebron.txt";
     private static ArrayList<Task> itemList = new ArrayList<>();
+    private static Storage storage = new Storage(FILE_PATH);
 
     public static void main(String[] args) {
+        loadTasks();
+
         System.out.println("---------------------------");
         System.out.println("Yo, what's good! I'm King James.");
         System.out.println("Let's get this W. What you need?");
@@ -24,6 +31,23 @@ public class Lebron {
         }
 
         scanner.close();
+    }
+
+    private static void loadTasks() {
+        try {
+            itemList = storage.load();
+        } catch (LebronException e) {
+            System.out.println("Ayo, couldn't load the save file: " + e.getMessage());
+            System.out.println("Starting fresh!");
+        }
+    }
+
+    private static void saveTasks() {
+        try {
+            storage.save(itemList);
+        } catch (LebronException e) {
+            System.out.println("Ayo, couldn't save: " + e.getMessage());
+        }
     }
 
     private static void respondToInput(String input) {
@@ -161,6 +185,7 @@ public class Lebron {
 
     private static void deleteTask(int index) {
         Task removed = itemList.remove(index);
+        saveTasks();
         System.out.println("Traded away! I've removed this task:");
         System.out.println("  " + removed);
         System.out.println("Now you got " + itemList.size() + " tasks on the board.");
@@ -189,18 +214,21 @@ public class Lebron {
     private static void addTodo(String description) {
         Task newTask = new Todo(description);
         itemList.add(newTask);
+        saveTasks();
         printTaskAdded(newTask);
     }
 
     private static void addDeadline(String description, String by) {
         Task newTask = new Deadline(description, by);
         itemList.add(newTask);
+        saveTasks();
         printTaskAdded(newTask);
     }
 
     private static void addEvent(String description, String from, String to) {
         Task newTask = new Event(description, from, to);
         itemList.add(newTask);
+        saveTasks();
         printTaskAdded(newTask);
     }
 
@@ -220,6 +248,7 @@ public class Lebron {
     private static void markItemAsDone(int index) {
         Task item = itemList.get(index);
         item.markAsDone();
+        saveTasks();
         System.out.println("That's a W! Task complete:");
         System.out.println("  " + item);
     }
@@ -227,6 +256,7 @@ public class Lebron {
     private static void markItemAsNotDone(int index) {
         Task item = itemList.get(index);
         item.markAsNotDone();
+        saveTasks();
         System.out.println("Aight, we running it back. Task unmarked:");
         System.out.println("  " + item);
     }

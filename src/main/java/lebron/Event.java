@@ -1,5 +1,8 @@
+package lebron;
+
 /**
  * Represents a task that starts and ends at specific date/times.
+ * An event task has a description, a start time, and an end time.
  */
 public class Event extends Task {
 
@@ -17,6 +20,11 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | " + super.toFileString() + " | " + from + " | " + to;
     }
 
     @Override
