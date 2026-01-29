@@ -1,5 +1,8 @@
+package lebron;
+
 /**
  * Represents a task with a description and completion status.
+ * This is the base class for all task types in the Lebron chatbot.
  */
 public class Task {
     protected String description;
@@ -25,6 +28,15 @@ public class Task {
 
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns the file format representation of this task.
+     *
+     * @return The string representation for saving to file.
+     */
+    public String toFileString() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override

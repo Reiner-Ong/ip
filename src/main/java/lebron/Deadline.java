@@ -1,5 +1,8 @@
+package lebron;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
+ * A deadline task has both a description and a due date.
  */
 public class Deadline extends Task {
 
@@ -14,6 +17,11 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + super.toFileString() + " | " + by;
     }
 
     @Override
