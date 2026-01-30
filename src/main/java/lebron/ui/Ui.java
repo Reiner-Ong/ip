@@ -1,7 +1,9 @@
-package lebron;
+package lebron.ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import lebron.task.Task;
 
 /**
  * Handles all user interface interactions for the Lebron chatbot.
