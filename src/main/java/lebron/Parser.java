@@ -7,12 +7,47 @@ package lebron;
 public class Parser {
 
     /**
+     * Parses the user input and returns the appropriate Command object.
+     *
+     * @param input The user input string.
+     * @return The Command object to execute.
+     * @throws LebronException If the command is invalid or has invalid arguments.
+     */
+    public static Command parse(String input) throws LebronException {
+        String commandType = getCommandType(input);
+
+        switch (commandType) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(parseTaskNumber(input, "mark"));
+        case "unmark":
+            return new UnmarkCommand(parseTaskNumber(input, "unmark"));
+        case "delete":
+            return new DeleteCommand(parseTaskNumber(input, "delete"));
+        case "todo":
+            return new AddCommand(new Todo(parseTodo(input)));
+        case "deadline":
+            String[] deadlineParts = parseDeadline(input);
+            return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+        case "event":
+            String[] eventParts = parseEvent(input);
+            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+        default:
+            throw new LebronException("I don't know what '" + input + "' means, my guy. "
+                    + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
+        }
+    }
+
+    /**
      * Parses the command type from user input.
      *
      * @param input The user input string.
      * @return The command type as a String.
      */
-    public static String getCommandType(String input) {
+    private static String getCommandType(String input) {
         String[] parts = input.split(" ", 2);
         return parts[0].toLowerCase();
     }
@@ -24,7 +59,7 @@ public class Parser {
      * @return The todo description.
      * @throws LebronException If the description is empty.
      */
-    public static String parseTodo(String input) throws LebronException {
+    private static String parseTodo(String input) throws LebronException {
         if (input.equals("todo") || input.equals("todo ")) {
             throw new LebronException("You can't score without the ball! "
                     + "Give me a description: todo <description>");
@@ -44,7 +79,7 @@ public class Parser {
      * @return A String array with [description, by].
      * @throws LebronException If the format is invalid.
      */
-    public static String[] parseDeadline(String input) throws LebronException {
+    private static String[] parseDeadline(String input) throws LebronException {
         if (input.equals("deadline") || input.equals("deadline ")) {
             throw new LebronException("Empty plays don't win championships! "
                     + "Try: deadline <description> /by <date>");
@@ -74,7 +109,7 @@ public class Parser {
      * @return A String array with [description, from, to].
      * @throws LebronException If the format is invalid.
      */
-    public static String[] parseEvent(String input) throws LebronException {
+    private static String[] parseEvent(String input) throws LebronException {
         if (input.equals("event") || input.equals("event ")) {
             throw new LebronException("Can't show up to a game with no game plan! "
                     + "Try: event <description> /from <start> /to <end>");
@@ -113,7 +148,7 @@ public class Parser {
      * @return The task index (0-based).
      * @throws LebronException If the format is invalid.
      */
-    public static int parseTaskNumber(String input, String command) throws LebronException {
+    private static int parseTaskNumber(String input, String command) throws LebronException {
         int commandLength = command.length();
         if (input.equals(command) || input.equals(command + " ")) {
             throw new LebronException(getTaskNumberError(command));
