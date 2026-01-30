@@ -218,14 +218,14 @@ public class Lebron {
         printTaskAdded(newTask);
     }
 
-    private static void addDeadline(String description, String by) {
+    private static void addDeadline(String description, String by) throws LebronException {
         Task newTask = new Deadline(description, by);
         itemList.add(newTask);
         saveTasks();
         printTaskAdded(newTask);
     }
 
-    private static void addEvent(String description, String from, String to) {
+    private static void addEvent(String description, String from, String to) throws LebronException {
         Task newTask = new Event(description, from, to);
         itemList.add(newTask);
         saveTasks();
