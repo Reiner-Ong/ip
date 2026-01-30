@@ -120,6 +120,18 @@ public class Ui {
     }
 
     /**
+     * Displays the list of found tasks.
+     * 
+     * @param tasks The list of found tasks to display.
+     */
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        System.out.println("Found these tasks in the game plan:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i));
+        }
+    }
+
+    /**
      * Reads a command from the user.
      *
      * @return The user's input as a String.

@@ -5,6 +5,7 @@ import lebron.command.AddCommand;
 import lebron.command.Command;
 import lebron.command.DeleteCommand;
 import lebron.command.ExitCommand;
+import lebron.command.FindCommand;
 import lebron.command.ListCommand;
 import lebron.command.MarkCommand;
 import lebron.command.UnmarkCommand;
@@ -47,6 +48,9 @@ public class Parser {
         case "event":
             String[] eventParts = parseEvent(input);
             return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+        case "find":
+            String keyword = parseFind(input);
+            return new FindCommand(keyword);
         default:
             throw new LebronException("I don't know what '" + input + "' means, my guy. "
                     + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
@@ -172,6 +176,22 @@ public class Parser {
             throw new LebronException("'" + numberStr + "' ain't a number! "
                     + "Give me a real number like 1, 2, or 3.");
         }
+    }
+
+    /**
+     * Parses a find command and returns the keyword.
+     *
+     * @param input The user input string.
+     * @return The search keyword.
+     * @throws LebronException If the keyword is empty.
+     */
+    private static String parseFind(String input) throws LebronException {
+        String keyword = input.substring(5).trim();
+        if (keyword.isEmpty()) {
+            throw new LebronException("Gotta give me something to look for! "
+                    + "Try: find <keyword>");
+        }
+        return keyword;
     }
 
     /**

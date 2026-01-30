@@ -117,6 +117,22 @@ public class TaskList {
     }
 
     /**
+     * Returns a list of tasks that contain the given keyword in their description.
+     * 
+     * @param keyword The keyword to search for.
+     * @return An ArrayList of tasks that match the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+    
+    /**
      * Validates that the given index is within the valid range.
      *
      * @param index The index to validate (0-based).
