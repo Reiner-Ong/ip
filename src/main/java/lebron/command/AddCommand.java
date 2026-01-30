@@ -1,4 +1,10 @@
-package lebron;
+package lebron.command;
+
+import lebron.LebronException;
+import lebron.storage.Storage;
+import lebron.task.Task;
+import lebron.task.TaskList;
+import lebron.ui.Ui;
 
 /**
  * Represents a command to add a task to the task list.

@@ -1,4 +1,8 @@
-package lebron;
+package lebron.command;
+
+import lebron.storage.Storage;
+import lebron.task.TaskList;
+import lebron.ui.Ui;
 
 /**
  * Represents a command to exit the application.

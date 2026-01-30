@@ -1,11 +1,17 @@
 package lebron;
 
+import lebron.command.Command;
+import lebron.storage.Storage;
+import lebron.task.TaskList;
+import lebron.ui.Parser;
+import lebron.ui.Ui;
+
 /**
  * Main class for the Lebron chatbot application.
  * This chatbot helps users manage their tasks with a basketball-themed personality.
  */
 public class Lebron {
-    private static final String FILE_PATH = "./src/main/java/data/lebron.txt";
+    private static final String FILE_PATH = "./data/lebron.txt";
 
     private Storage storage;
     private TaskList tasks;
