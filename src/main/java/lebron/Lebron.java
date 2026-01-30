@@ -1,263 +1,62 @@
 package lebron;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  * Main class for the Lebron chatbot application.
  * This chatbot helps users manage their tasks with a basketball-themed personality.
  */
 public class Lebron {
     private static final String FILE_PATH = "./src/main/java/data/lebron.txt";
-    private static ArrayList<Task> itemList = new ArrayList<>();
-    private static Storage storage = new Storage(FILE_PATH);
 
-    public static void main(String[] args) {
-        loadTasks();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        System.out.println("---------------------------");
-        System.out.println("Yo, what's good! I'm King James.");
-        System.out.println("Let's get this W. What you need?");
-        System.out.println("---------------------------");
+    /**
+     * Creates a new Lebron chatbot instance.
+     *
+     * @param filePath The path to the file for storing tasks.
+     */
+    public Lebron(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (LebronException e) {
+            ui.showLoadingError(e.getMessage());
+            tasks = new TaskList();
+        }
+    }
 
-        Scanner scanner = new Scanner(System.in);
+    /**
+     * Runs the chatbot main loop.
+     */
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
 
-        while (true) {
-            String input = scanner.nextLine();
-            respondToInput(input);
-            if (input.equals("bye")) {
-                break;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (LebronException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
             }
         }
 
-        scanner.close();
+        ui.close();
     }
 
-    private static void loadTasks() {
-        try {
-            itemList = storage.load();
-        } catch (LebronException e) {
-            System.out.println("Ayo, couldn't load the save file: " + e.getMessage());
-            System.out.println("Starting fresh!");
-        }
-    }
-
-    private static void saveTasks() {
-        try {
-            storage.save(itemList);
-        } catch (LebronException e) {
-            System.out.println("Ayo, couldn't save: " + e.getMessage());
-        }
-    }
-
-    private static void respondToInput(String input) {
-        System.out.println("---------------------------");
-        try {
-            processCommand(input);
-        } catch (LebronException e) {
-            System.out.println("Ayo that's a brick! " + e.getMessage());
-        }
-        System.out.println("---------------------------");
-    }
-
-    private static void processCommand(String input) throws LebronException {
-        if (input.equals("bye")) {
-            System.out.println("Alright, I'm out. Stay locked in, we got more wins to chase!");
-        } else if (input.equals("list")) {
-            showList();
-        } else if (input.startsWith("mark")) {
-            handleMark(input);
-        } else if (input.startsWith("unmark")) {
-            handleUnmark(input);
-        } else if (input.startsWith("todo")) {
-            handleTodo(input);
-        } else if (input.startsWith("deadline")) {
-            handleDeadline(input);
-        } else if (input.startsWith("event")) {
-            handleEvent(input);
-        } else if (input.startsWith("delete")) {
-            handleDelete(input);
-        } else {
-            throw new LebronException("I don't know what '" + input + "' means, my guy. "
-                    + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
-        }
-    }
-
-    private static void handleTodo(String input) throws LebronException {
-        if (input.equals("todo") || input.equals("todo ")) {
-            throw new LebronException("You can't score without the ball! "
-                    + "Give me a description: todo <description>");
-        }
-        String description = input.substring(5).trim();
-        if (description.isEmpty()) {
-            throw new LebronException("You can't score without the ball! "
-                    + "Give me a description: todo <description>");
-        }
-        addTodo(description);
-    }
-
-    private static void handleDeadline(String input) throws LebronException {
-        if (input.equals("deadline") || input.equals("deadline ")) {
-            throw new LebronException("Empty plays don't win championships! "
-                    + "Try: deadline <description> /by <date>");
-        }
-        String content = input.substring(9).trim();
-        if (!content.contains("/by")) {
-            throw new LebronException("When's the buzzer? I need a deadline! "
-                    + "Try: deadline <description> /by <date>");
-        }
-        String[] parts = content.split(" ?/by ?", 2);
-        String description = parts[0].trim();
-        if (description.isEmpty()) {
-            throw new LebronException("What's the play? Give me a description! "
-                    + "Try: deadline <description> /by <date>");
-        }
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LebronException("When's the buzzer? I need a due date! "
-                    + "Try: deadline <description> /by <date>");
-        }
-        addDeadline(description, parts[1].trim());
-    }
-
-    private static void handleEvent(String input) throws LebronException {
-        if (input.equals("event") || input.equals("event ")) {
-            throw new LebronException("Can't show up to a game with no game plan! "
-                    + "Try: event <description> /from <start> /to <end>");
-        }
-        String content = input.substring(6).trim();
-        if (!content.contains("/from")) {
-            throw new LebronException("When's tip-off? I need a start time! "
-                    + "Try: event <description> /from <start> /to <end>");
-        }
-        if (!content.contains("/to")) {
-            throw new LebronException("When's the final buzzer? I need an end time! "
-                    + "Try: event <description> /from <start> /to <end>");
-        }
-        String[] parts = content.split(" ?/from ?| ?/to ?", 3);
-        String description = parts[0].trim();
-        if (description.isEmpty()) {
-            throw new LebronException("What's the event? Give me a description! "
-                    + "Try: event <description> /from <start> /to <end>");
-        }
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LebronException("When's tip-off? I need a start time! "
-                    + "Try: event <description> /from <start> /to <end>");
-        }
-        if (parts.length < 3 || parts[2].trim().isEmpty()) {
-            throw new LebronException("When's the final buzzer? I need an end time! "
-                    + "Try: event <description> /from <start> /to <end>");
-        }
-        addEvent(description, parts[1].trim(), parts[2].trim());
-    }
-
-    private static void handleMark(String input) throws LebronException {
-        if (input.equals("mark") || input.equals("mark ")) {
-            throw new LebronException("Which play we running? "
-                    + "Tell me the task number: mark <number>");
-        }
-        String numberStr = input.substring(5).trim();
-        int index = parseTaskNumber(numberStr) - 1;
-        validateTaskIndex(index);
-        markItemAsDone(index);
-    }
-
-    private static void handleUnmark(String input) throws LebronException {
-        if (input.equals("unmark") || input.equals("unmark ")) {
-            throw new LebronException("Which one we taking back? "
-                    + "Tell me the task number: unmark <number>");
-        }
-        String numberStr = input.substring(7).trim();
-        int index = parseTaskNumber(numberStr) - 1;
-        validateTaskIndex(index);
-        markItemAsNotDone(index);
-    }
-
-    private static void handleDelete(String input) throws LebronException {
-        if (input.equals("delete") || input.equals("delete ")) {
-            throw new LebronException("Who we cutting from the roster? "
-                    + "Tell me the task number: delete <number>");
-        }
-        String numberStr = input.substring(7).trim();
-        int index = parseTaskNumber(numberStr) - 1;
-        validateTaskIndex(index);
-        deleteTask(index);
-    }
-
-    private static void deleteTask(int index) {
-        Task removed = itemList.remove(index);
-        saveTasks();
-        System.out.println("Traded away! I've removed this task:");
-        System.out.println("  " + removed);
-        System.out.println("Now you got " + itemList.size() + " tasks on the board.");
-    }
-
-    private static int parseTaskNumber(String numberStr) throws LebronException {
-        try {
-            return Integer.parseInt(numberStr);
-        } catch (NumberFormatException e) {
-            throw new LebronException("'" + numberStr + "' ain't a number! "
-                    + "Give me a real number like 1, 2, or 3.");
-        }
-    }
-
-    private static void validateTaskIndex(int index) throws LebronException {
-        if (itemList.isEmpty()) {
-            throw new LebronException("The roster's empty! Add some tasks first, my guy.");
-        }
-        if (index < 0 || index >= itemList.size()) {
-            throw new LebronException("Task " + (index + 1) + " doesn't exist! "
-                    + "You got " + itemList.size() + " task(s). "
-                    + "Pick a number between 1 and " + itemList.size() + ".");
-        }
-    }
-
-    private static void addTodo(String description) {
-        Task newTask = new Todo(description);
-        itemList.add(newTask);
-        saveTasks();
-        printTaskAdded(newTask);
-    }
-
-    private static void addDeadline(String description, String by) throws LebronException {
-        Task newTask = new Deadline(description, by);
-        itemList.add(newTask);
-        saveTasks();
-        printTaskAdded(newTask);
-    }
-
-    private static void addEvent(String description, String from, String to) throws LebronException {
-        Task newTask = new Event(description, from, to);
-        itemList.add(newTask);
-        saveTasks();
-        printTaskAdded(newTask);
-    }
-
-    private static void printTaskAdded(Task task) {
-        System.out.println("Locked in! I added this to the game plan:");
-        System.out.println("  " + task);
-        System.out.println("Now you got " + itemList.size() + " tasks on the board.");
-    }
-
-    private static void showList() {
-        System.out.println("Here's the game plan:");
-        for (int i = 0; i < itemList.size(); i++) {
-            System.out.println((i + 1) + "." + itemList.get(i));
-        }
-    }
-
-    private static void markItemAsDone(int index) {
-        Task item = itemList.get(index);
-        item.markAsDone();
-        saveTasks();
-        System.out.println("That's a W! Task complete:");
-        System.out.println("  " + item);
-    }
-
-    private static void markItemAsNotDone(int index) {
-        Task item = itemList.get(index);
-        item.markAsNotDone();
-        saveTasks();
-        System.out.println("Aight, we running it back. Task unmarked:");
-        System.out.println("  " + item);
+    /**
+     * Main entry point for the Lebron chatbot.
+     *
+     * @param args Command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        new Lebron(FILE_PATH).run();
     }
 }
