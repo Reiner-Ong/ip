@@ -33,7 +33,7 @@ public class Task {
     /**
      * Returns the file format representation of this task.
      *
-     * @return The string representation for saving to file.
+     * @return The string representation for saving to file. 
      */
     public String toFileString() {
         return (isDone ? "1" : "0") + " | " + description;
