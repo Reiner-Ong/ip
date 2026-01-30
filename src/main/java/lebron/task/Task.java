@@ -30,6 +30,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns the file format representation of this task.
      *
