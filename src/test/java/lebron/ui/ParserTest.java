@@ -1,5 +1,8 @@
 package lebron.ui;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import lebron.LebronException;
@@ -11,8 +14,6 @@ import lebron.command.ListCommand;
 import lebron.command.MarkCommand;
 import lebron.command.UnmarkCommand;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
 

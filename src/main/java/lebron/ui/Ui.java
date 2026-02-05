@@ -121,7 +121,7 @@ public class Ui {
 
     /**
      * Displays the list of found tasks.
-     * 
+     *
      * @param tasks The list of found tasks to display.
      */
     public void showFoundTasks(ArrayList<Task> tasks) {
