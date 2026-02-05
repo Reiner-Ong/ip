@@ -1,26 +1,38 @@
-# Duke project template
+# Lebron Chatbot 🏀
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Ever wanted to speak to my GOAT ~~LePookie~~ **LeBron James**? Well, here's your chance!
 
-## Setting up in Intellij
+Lebron Chatbot is a chatbot that allows you to simulate speaking to LeBron James, it will be as if he was right here speaking to you _(minus the championships)_.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Imagine LeBron Saying this right in your face:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+> OH YEA, that's my favourite saying
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+[link](https://www.tiktok.com/@oms.motive/video/7520355914038218014) for reference
+
+Yep, that's what this app plans to do.
+
+## Features
+
+* Get motivational responses like _"That's a W!"_ and _"Stay locked in!"_
+* Tasks get "traded away" instead of deleted (very professional)
+* Error messages call your mistakes "bricks" 🧱
+* Persistent storage so LeBron remembers your tasks
+
+## Supported Commands
+
+1. `todo` - For when you need to do something
+1. `deadline` - For when you need to do something _before the buzzer_
+1. `event` - For scheduling your NBA watch parties
+1. `list` - See all your tasks (the "game plan")
+1. `mark` / `unmark` - Toggle task completion
+1. `delete` - Trade away tasks you don't need
+1. `find` - Search through your tasks
+
+## Example Usage
+```java
+todo buy LeBron's new shoes
+deadline trade AD /by Sunday 6pm
+event Lakers vs Warriors /from 7pm /to 10pm
+mark 1
+```
