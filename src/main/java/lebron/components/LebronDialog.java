@@ -1,14 +1,13 @@
 package lebron.components;
 
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 
 /**
  * Represents a dialog box for Lebron's responses, aligned to the left.
  */
 public class LebronDialog extends DialogBox {
-    private static final Image LEBRON_IMAGE =
-            new Image(LebronDialog.class.getResourceAsStream("/images/LeSunShine.png"));
+    private static final Image LEBRON_IMAGE = new Image(
+            LebronDialog.class.getResourceAsStream("/images/LeSunShine.png"));
 
     /**
      * Creates a Lebron dialog box with the given text.
@@ -16,6 +15,6 @@ public class LebronDialog extends DialogBox {
      * @param text The text to display.
      */
     public LebronDialog(String text) {
-        super(text, LEBRON_IMAGE, Pos.TOP_LEFT, true);
+        super(text, LEBRON_IMAGE, "/view/LebronDialog.fxml");
     }
 }

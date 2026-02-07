@@ -1,19 +1,14 @@
 package lebron;
 
-import javafx.animation.PauseTransition;
+import java.io.IOException;
+
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.util.Duration;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lebron.components.LebronDialog;
-import lebron.components.UserDialog;
+import lebron.components.MainWindow;
 
 /**
  * Main JavaFX application class for the Lebron chatbot GUI.
@@ -22,12 +17,6 @@ public class Main extends Application {
     private static final String DEFAULT_FILE_PATH = "./data/lebron.txt";
 
     private final Lebron lebronChatbot;
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
 
     public Main(String filePath) {
         lebronChatbot = new Lebron(filePath);
@@ -40,95 +29,33 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Setting up components
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.setTitle("LeBron");
 
-        userInput = new TextField();
-        sendButton = new Button("Send");
+            // Get the controller and inject the Lebron instance
+            MainWindow controller = fxmlLoader.getController();
+            controller.setLebron(lebronChatbot);
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+            // Show startup messages
+            showStartupMessages(controller);
 
-        scene = new Scene(mainLayout);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        // Formatting the window to look as expected
-        stage.setTitle("LeBron");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        // Handling user input
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        stage.setScene(scene);
-        stage.show();
-
-        // Scroll down to the end every time dialogContainer's height changes.
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-        // Show loading error if any occurred during initialization
+    private void showStartupMessages(MainWindow controller) {
         String loadingError = lebronChatbot.getLoadingError();
         if (loadingError != null) {
-            dialogContainer.getChildren().add(
-                    new LebronDialog("Ayo, couldn't load the save file: "
-                            + loadingError + "\nStarting fresh!"));
+            controller.showMessage(new LebronDialog("Ayo, couldn't load the save file: "
+                    + loadingError + "\nLet's Run it back!"));
         }
 
-        printWelcomeMessage();
-    }
-
-    /**
-     * Creates a dialog box containing user input, and appends it to
-     * the dialog container. Clears the user input after processing.
-     */
-    private void handleUserInput() {
-        String fullCommand = userInput.getText();
-        String fullResponse = lebronChatbot.getResponse(fullCommand);
-
-        dialogContainer.getChildren().addAll(
-                new UserDialog(fullCommand),
-                new LebronDialog(fullResponse));
-        userInput.clear();
-
-        if (lebronChatbot.isExit()) {
-            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
-        }
-    }
-
-    private void printWelcomeMessage() {
-        String welcomeMessage = lebronChatbot.getWelcomeMessage();
-        dialogContainer.getChildren().add(new LebronDialog(welcomeMessage));
+        controller.showMessage(new LebronDialog(lebronChatbot.getWelcomeMessage()));
     }
 }

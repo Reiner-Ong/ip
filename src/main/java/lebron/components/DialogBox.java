@@ -1,6 +1,9 @@
 package lebron.components;
 
-import javafx.geometry.Pos;
+import java.io.IOException;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,28 +13,29 @@ import javafx.scene.layout.HBox;
  * Represents a dialog box consisting of a text label and a display picture.
  */
 public abstract class DialogBox extends HBox {
+    @FXML
+    private Label dialog;
+    @FXML
+    private ImageView displayPicture;
 
     /**
      * Creates a dialog box with the given text, image, and layout settings.
      *
-     * @param s The text to display.
-     * @param i The image to display.
-     * @param alignment The alignment of the dialog box.
-     * @param isImageFirst Whether the image should appear before the text.
+     * @param s        The text to display.
+     * @param i        The image to display.
+     * @param fxmlPath The path to the FXML file to load.
      */
-    protected DialogBox(String s, Image i, Pos alignment, boolean isImageFirst) {
-        Label text = new Label(s);
-        ImageView displayPicture = new ImageView(i);
-
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        this.setAlignment(alignment);
-
-        if (isImageFirst) {
-            this.getChildren().addAll(displayPicture, text);
-        } else {
-            this.getChildren().addAll(text, displayPicture);
+    protected DialogBox(String s, Image i, String fxmlPath) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        dialog.setText(s);
+        displayPicture.setImage(i);
     }
 }
