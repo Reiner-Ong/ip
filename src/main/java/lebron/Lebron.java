@@ -1,34 +1,23 @@
 package lebron;
 
+import java.util.ArrayList;
+
 import lebron.command.Command;
-import lebron.components.DialogBox;
+import lebron.io.Parser;
+import lebron.io.ResponseFormatter;
 import lebron.storage.Storage;
 import lebron.task.TaskList;
-import lebron.ui.Parser;
-import lebron.ui.Ui;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Main class for the Lebron chatbot application.
- * This chatbot helps users manage their tasks with a basketball-themed personality.
+ * This chatbot helps users manage their tasks with a basketball-themed
+ * personality.
  */
 public class Lebron {
-    private static final String FILE_PATH = "./data/lebron.txt";
-
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private String loadingError;
+    private boolean isExit;
 
     /**
      * Creates a new Lebron chatbot instance.
@@ -36,46 +25,54 @@ public class Lebron {
      * @param filePath The path to the file for storing tasks.
      */
     public Lebron(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (LebronException e) {
-            ui.showLoadingError(e.getMessage());
+            loadingError = e.getMessage();
             tasks = new TaskList();
         }
     }
 
     /**
-     * Runs the chatbot main loop.
+     * Returns the loading error message, if any occurred during initialization.
+     *
+     * @return The error message, or null if no error occurred.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (LebronException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-
-        ui.close();
+    public String getLoadingError() {
+        return loadingError;
     }
 
-//    /**
-//     * Main entry point for the Lebron chatbot.
-//     *
-//     * @param args Command line arguments (not used).
-//     */
-//    public static void main(String[] args) {
-//        new Lebron(FILE_PATH).run();
-//    }
+    /**
+     * Returns whether the last command was an exit command.
+     *
+     * @return True if the application should exit, false otherwise.
+     */
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public String getWelcomeMessage() {
+        return "Yo, what's good! I'm King James."
+                + "\nLet's get this W. What you need?";
+    }
+
+    /**
+     * Processes a user command and returns the chatbot's response.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return The formatted response string.
+     */
+    public String getResponse(String fullCommand) {
+        ArrayList<String> responses;
+        try {
+            Command c = Parser.parse(fullCommand);
+            responses = c.execute(tasks, storage);
+            isExit = c.isExit();
+        } catch (LebronException e) {
+            responses = ResponseFormatter.respondError(e.getMessage());
+        }
+
+        return String.join("\n", responses);
+    }
 }

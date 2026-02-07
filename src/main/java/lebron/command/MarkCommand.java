@@ -1,10 +1,12 @@
 package lebron.command;
 
+import java.util.ArrayList;
+
 import lebron.LebronException;
+import lebron.io.ResponseFormatter;
 import lebron.storage.Storage;
 import lebron.task.Task;
 import lebron.task.TaskList;
-import lebron.ui.Ui;
 
 /**
  * Represents a command to mark a task as done.
@@ -25,14 +27,14 @@ public class MarkCommand extends Command {
      * Executes the mark command by marking the task as done and saving.
      *
      * @param tasks The task list containing the task.
-     * @param ui The UI to display the result.
      * @param storage The storage to save the updated list.
+     * @return The response lines confirming the task was marked.
      * @throws LebronException If the index is invalid or there is an error saving.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LebronException {
+    public ArrayList<String> execute(TaskList tasks, Storage storage) throws LebronException {
         Task task = tasks.mark(index);
         storage.save(tasks.getTasks());
-        ui.showTaskMarked(task);
+        return ResponseFormatter.respondTaskMarked(task);
     }
 }

@@ -1,4 +1,4 @@
-package lebron.ui;
+package lebron.io;
 
 import lebron.LebronException;
 import lebron.command.AddCommand;

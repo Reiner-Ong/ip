@@ -1,10 +1,12 @@
 package lebron.command;
 
+import java.util.ArrayList;
+
 import lebron.LebronException;
+import lebron.io.ResponseFormatter;
 import lebron.storage.Storage;
 import lebron.task.Task;
 import lebron.task.TaskList;
-import lebron.ui.Ui;
 
 /**
  * Represents a command to unmark a task (mark as not done).
@@ -25,14 +27,14 @@ public class UnmarkCommand extends Command {
      * Executes the unmark command by unmarking the task and saving.
      *
      * @param tasks The task list containing the task.
-     * @param ui The UI to display the result.
      * @param storage The storage to save the updated list.
+     * @return The response lines confirming the task was unmarked.
      * @throws LebronException If the index is invalid or there is an error saving.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LebronException {
+    public ArrayList<String> execute(TaskList tasks, Storage storage) throws LebronException {
         Task task = tasks.unmark(index);
         storage.save(tasks.getTasks());
-        ui.showTaskUnmarked(task);
+        return ResponseFormatter.respondTaskUnmarked(task);
     }
 }

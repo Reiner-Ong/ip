@@ -1,9 +1,10 @@
 package lebron.command;
 
+import java.util.ArrayList;
+
 import lebron.LebronException;
 import lebron.storage.Storage;
 import lebron.task.TaskList;
-import lebron.ui.Ui;
 
 /**
  * Represents an abstract command that can be executed by the chatbot.
@@ -12,14 +13,15 @@ import lebron.ui.Ui;
 public abstract class Command {
 
     /**
-     * Executes the command with the given task list, UI, and storage.
+     * Executes the command with the given task list and storage.
      *
      * @param tasks The task list to operate on.
-     * @param ui The UI to display messages.
      * @param storage The storage to save/load tasks.
-     * @throws LebronException If there is an error executing the command.
+     * @return The response lines to display to the user.
+     * @throws LebronException If there is an error executing the commands.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws LebronException;
+    public abstract ArrayList<String> execute(TaskList tasks, Storage storage)
+            throws LebronException;
 
     /**
      * Returns whether this command should exit the application.

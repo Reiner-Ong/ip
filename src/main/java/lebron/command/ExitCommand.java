@@ -1,8 +1,10 @@
 package lebron.command;
 
+import java.util.ArrayList;
+
+import lebron.io.ResponseFormatter;
 import lebron.storage.Storage;
 import lebron.task.TaskList;
-import lebron.ui.Ui;
 
 /**
  * Represents a command to exit the application.
@@ -10,15 +12,15 @@ import lebron.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Executes the exit command by displaying the goodbye message.
+     * Executes the exit command by returning the goodbye message.
      *
      * @param tasks The task list (not used).
-     * @param ui The UI to display the goodbye message.
      * @param storage The storage (not used).
+     * @return The response lines containing the goodbye message.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public ArrayList<String> execute(TaskList tasks, Storage storage) {
+        return ResponseFormatter.replyGoodbye();
     }
 
     /**

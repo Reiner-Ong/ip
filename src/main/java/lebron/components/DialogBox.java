@@ -6,21 +6,32 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-public class DialogBox extends HBox {
+/**
+ * Represents a dialog box consisting of a text label and a display picture.
+ */
+public abstract class DialogBox extends HBox {
 
-    private Label text;
-    private ImageView displayPicture;
+    /**
+     * Creates a dialog box with the given text, image, and layout settings.
+     *
+     * @param s The text to display.
+     * @param i The image to display.
+     * @param alignment The alignment of the dialog box.
+     * @param isImageFirst Whether the image should appear before the text.
+     */
+    protected DialogBox(String s, Image i, Pos alignment, boolean isImageFirst) {
+        Label text = new Label(s);
+        ImageView displayPicture = new ImageView(i);
 
-    public DialogBox(String s, Image i) {
-        text = new Label(s);
-        displayPicture = new ImageView(i);
-
-        //Styling the dialog box
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
-        this.setAlignment(Pos.TOP_RIGHT);
+        this.setAlignment(alignment);
 
-        this.getChildren().addAll(text, displayPicture);
+        if (isImageFirst) {
+            this.getChildren().addAll(displayPicture, text);
+        } else {
+            this.getChildren().addAll(text, displayPicture);
+        }
     }
 }

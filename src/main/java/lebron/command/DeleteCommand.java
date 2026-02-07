@@ -1,10 +1,12 @@
 package lebron.command;
 
+import java.util.ArrayList;
+
 import lebron.LebronException;
+import lebron.io.ResponseFormatter;
 import lebron.storage.Storage;
 import lebron.task.Task;
 import lebron.task.TaskList;
-import lebron.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -25,14 +27,14 @@ public class DeleteCommand extends Command {
      * Executes the delete command by removing the task and saving.
      *
      * @param tasks The task list to delete from.
-     * @param ui The UI to display the result.
      * @param storage The storage to save the updated list.
+     * @return The response lines confirming the task was deleted.
      * @throws LebronException If the index is invalid or there is an error saving.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LebronException {
+    public ArrayList<String> execute(TaskList tasks, Storage storage) throws LebronException {
         Task task = tasks.delete(index);
         storage.save(tasks.getTasks());
-        ui.showTaskDeleted(task, tasks.size());
+        return ResponseFormatter.respondTaskDeleted(task, tasks.size());
     }
 }
