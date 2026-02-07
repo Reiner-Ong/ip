@@ -52,6 +52,11 @@ public class Lebron {
         return isExit;
     }
 
+    /**
+     * Returns the welcome message displayed when the chatbot starts.
+     *
+     * @return The welcome message string.
+     */
     public String getWelcomeMessage() {
         return "Yo, what's good! I'm King James."
                 + "\nLet's get this W. What you need?";
