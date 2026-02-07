@@ -18,18 +18,34 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon representing the completion state of this task.
+     *
+     * @return "[X]" if task is done, "[ ]" otherwise.
+     */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    /**
+     * Marks this task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks this task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of this task.
+     *
+     * @return The task description.
+     */
     public String getDescription() {
         return this.description;
     }

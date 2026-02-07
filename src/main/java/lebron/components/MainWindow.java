@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Lebron instance */
     public void setLebron(Lebron l) {
         lebron = l;
     }

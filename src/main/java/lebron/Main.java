@@ -18,15 +18,27 @@ public class Main extends Application {
 
     private final Lebron lebronChatbot;
 
+    /**
+     * Creates a Main application with the specified file path for task storage.
+     *
+     * @param filePath The path to the file for storing tasks.
+     */
     public Main(String filePath) {
         lebronChatbot = new Lebron(filePath);
     }
 
-    // Overloaded constructor
+    /**
+     * Creates a Main application with the default file path for task storage.
+     */
     public Main() {
         this(DEFAULT_FILE_PATH);
     }
 
+    /**
+     * Starts the JavaFX application by loading the FXML and displaying the GUI.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -49,6 +61,12 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Displays startup messages including any loading errors and the welcome
+     * message.
+     *
+     * @param controller The MainWindow controller to display messages in.
+     */
     private void showStartupMessages(MainWindow controller) {
         String loadingError = lebronChatbot.getLoadingError();
         if (loadingError != null) {
