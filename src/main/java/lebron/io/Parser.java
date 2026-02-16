@@ -15,7 +15,8 @@ import lebron.task.Todo;
 
 /**
  * Parses user input and extracts command information.
- * This class handles making sense of user commands and extracting relevant data.
+ * This class handles making sense of user commands and extracting relevant
+ * data.
  */
 public class Parser {
 
@@ -30,30 +31,27 @@ public class Parser {
         String commandType = getCommandType(input);
 
         switch (commandType) {
-        case "bye":
-            return new ExitCommand();
-        case "list":
-            return new ListCommand();
-        case "mark":
-            return new MarkCommand(parseTaskNumber(input, "mark"));
-        case "unmark":
-            return new UnmarkCommand(parseTaskNumber(input, "unmark"));
-        case "delete":
-            return new DeleteCommand(parseTaskNumber(input, "delete"));
-        case "todo":
-            return new AddCommand(new Todo(parseTodo(input)));
-        case "deadline":
-            String[] deadlineParts = parseDeadline(input);
-            return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
-        case "event":
-            String[] eventParts = parseEvent(input);
-            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
-        case "find":
-            String keyword = parseFind(input);
-            return new FindCommand(keyword);
-        default:
-            throw new LebronException("I don't know what '" + input + "' means, my guy. "
-                    + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
+            case "bye":
+                return new ExitCommand();
+            case "list":
+                return new ListCommand();
+            case "mark":
+                return new MarkCommand(parseTaskNumber(input, "mark"));
+            case "unmark":
+                return new UnmarkCommand(parseTaskNumber(input, "unmark"));
+            case "delete":
+                return new DeleteCommand(parseTaskNumber(input, "delete"));
+            case "todo":
+                return parseAddTodo(input);
+            case "deadline":
+                return parseAddDeadline(input);
+            case "event":
+                return parseAddEvent(input);
+            case "find":
+                return parseFindCommand(input);
+            default:
+                throw new LebronException("I don't know what '" + input + "' means, my guy. "
+                        + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
         }
     }
 
@@ -69,14 +67,14 @@ public class Parser {
     }
 
     /**
-     * Parses a todo command and returns the description.
+     * Parses a todo command and returns the corresponding AddCommand.
      *
      * @param input The user input string.
-     * @return The todo description.
+     * @return The AddCommand containing the parsed Todo task.
      * @throws LebronException If the description is empty.
      */
-    private static String parseTodo(String input) throws LebronException {
-        if (input.equals("todo") || input.equals("todo ")) {
+    private static Command parseAddTodo(String input) throws LebronException {
+        if (input.equals("todo")) {
             throw new LebronException("You can't score without the ball! "
                     + "Give me a description: todo <description>");
         }
@@ -85,18 +83,18 @@ public class Parser {
             throw new LebronException("You can't score without the ball! "
                     + "Give me a description: todo <description>");
         }
-        return description;
+        return new AddCommand(new Todo(description));
     }
 
     /**
-     * Parses a deadline command and returns the description and due date.
+     * Parses a deadline command and returns the corresponding AddCommand.
      *
      * @param input The user input string.
-     * @return A String array with [description, by].
+     * @return The AddCommand containing the parsed Deadline task.
      * @throws LebronException If the format is invalid.
      */
-    private static String[] parseDeadline(String input) throws LebronException {
-        if (input.equals("deadline") || input.equals("deadline ")) {
+    private static Command parseAddDeadline(String input) throws LebronException {
+        if (input.equals("deadline")) {
             throw new LebronException("Empty plays don't win championships! "
                     + "Try: deadline <description> /by <date>");
         }
@@ -115,18 +113,18 @@ public class Parser {
             throw new LebronException("When's the buzzer? I need a due date! "
                     + "Try: deadline <description> /by <date>");
         }
-        return new String[]{description, parts[1].trim()};
+        return new AddCommand(new Deadline(description, parts[1].trim()));
     }
 
     /**
-     * Parses an event command and returns the description, start and end times.
+     * Parses an event command and returns the corresponding AddCommand.
      *
      * @param input The user input string.
-     * @return A String array with [description, from, to].
+     * @return The AddCommand containing the parsed Event task.
      * @throws LebronException If the format is invalid.
      */
-    private static String[] parseEvent(String input) throws LebronException {
-        if (input.equals("event") || input.equals("event ")) {
+    private static Command parseAddEvent(String input) throws LebronException {
+        if (input.equals("event")) {
             throw new LebronException("Can't show up to a game with no game plan! "
                     + "Try: event <description> /from <start> /to <end>");
         }
@@ -153,13 +151,13 @@ public class Parser {
             throw new LebronException("When's the final buzzer? I need an end time! "
                     + "Try: event <description> /from <start> /to <end>");
         }
-        return new String[]{description, parts[1].trim(), parts[2].trim()};
+        return new AddCommand(new Event(description, parts[1].trim(), parts[2].trim()));
     }
 
     /**
      * Parses a task number from a mark/unmark/delete command.
      *
-     * @param input The user input string.
+     * @param input   The user input string.
      * @param command The command name (mark, unmark, or delete).
      * @return The task index (0-based).
      * @throws LebronException If the format is invalid.
@@ -179,19 +177,19 @@ public class Parser {
     }
 
     /**
-     * Parses a find command and returns the keyword.
+     * Parses a find command and returns the corresponding FindCommand.
      *
      * @param input The user input string.
-     * @return The search keyword.
+     * @return The FindCommand containing the parsed keyword.
      * @throws LebronException If the keyword is empty.
      */
-    private static String parseFind(String input) throws LebronException {
+    private static Command parseFindCommand(String input) throws LebronException {
         String keyword = input.substring(5).trim();
         if (keyword.isEmpty()) {
             throw new LebronException("Gotta give me something to look for! "
                     + "Try: find <keyword>");
         }
-        return keyword;
+        return new FindCommand(keyword);
     }
 
     /**
@@ -202,14 +200,14 @@ public class Parser {
      */
     private static String getTaskNumberError(String command) {
         switch (command) {
-        case "mark":
-            return "Which play we running? Tell me the task number: mark <number>";
-        case "unmark":
-            return "Which one we taking back? Tell me the task number: unmark <number>";
-        case "delete":
-            return "Who we cutting from the roster? Tell me the task number: delete <number>";
-        default:
-            return "Tell me the task number!";
+            case "mark":
+                return "Which play we running? Tell me the task number: mark <number>";
+            case "unmark":
+                return "Which one we taking back? Tell me the task number: unmark <number>";
+            case "delete":
+                return "Who we cutting from the roster? Tell me the task number: delete <number>";
+            default:
+                return "Tell me the task number!";
         }
     }
 }
