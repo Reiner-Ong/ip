@@ -35,6 +35,7 @@ public class TaskList {
      * @param task The task to add.
      */
     public void add(Task task) {
+        assert task != null : "Null task should never be passed to add()";
         tasks.add(task);
     }
 
@@ -47,6 +48,7 @@ public class TaskList {
      */
     public Task delete(int index) throws LebronException {
         validateIndex(index);
+        assert index >= 0 && index < tasks.size() : "validateIndex should have caught invalid index";
         return tasks.remove(index);
     }
 
@@ -59,6 +61,7 @@ public class TaskList {
      */
     public Task get(int index) throws LebronException {
         validateIndex(index);
+        assert index >= 0 && index < tasks.size() : "validateIndex should have caught invalid index";
         return tasks.get(index);
     }
 
@@ -71,6 +74,7 @@ public class TaskList {
      */
     public Task mark(int index) throws LebronException {
         validateIndex(index);
+        assert index >= 0 && index < tasks.size() : "validateIndex should have caught invalid index";
         Task task = tasks.get(index);
         task.markAsDone();
         return task;
@@ -85,6 +89,7 @@ public class TaskList {
      */
     public Task unmark(int index) throws LebronException {
         validateIndex(index);
+        assert index >= 0 && index < tasks.size() : "validateIndex should have caught invalid index";
         Task task = tasks.get(index);
         task.markAsNotDone();
         return task;
