@@ -112,34 +112,52 @@ public class Storage {
             return null;
         }
 
+        Task task = createTask(parts);
+        if (task == null) {
+            return null;
+        }
+        applyStatus(task, parts[1]);
+        return task;
+    }
+
+    /**
+     * Creates the appropriate Task object based on the parsed fields.
+     *
+     * @param parts The pipe-delimited fields from the save file line.
+     * @return The created Task, or null if the type is unrecognized.
+     * @throws LebronException If the task-specific data is missing or malformed.
+     */
+    private Task createTask(String[] parts) throws LebronException {
         String type = parts[0];
-        boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task;
         switch (type) {
         case "T":
-            task = new Todo(description);
-            break;
+            return new Todo(description);
         case "D":
             if (parts.length < 4) {
                 throw new LebronException("Invalid deadline format in save file.");
             }
-            task = new Deadline(description, parts[3]);
-            break;
+            return new Deadline(description, parts[3]);
         case "E":
             if (parts.length < 5) {
                 throw new LebronException("Invalid event format in save file.");
             }
-            task = new Event(description, parts[3], parts[4]);
-            break;
+            return new Event(description, parts[3], parts[4]);
         default:
             return null;
         }
+    }
 
-        if (isDone) {
+    /**
+     * Applies the saved completion status to a task.
+     *
+     * @param task The task to update.
+     * @param status The status field from the save file ("1" for done).
+     */
+    private void applyStatus(Task task, String status) {
+        if (status.equals("1")) {
             task.markAsDone();
         }
-        return task;
     }
 }
