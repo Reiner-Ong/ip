@@ -31,27 +31,27 @@ public class Parser {
         String commandType = getCommandType(input);
 
         switch (commandType) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return new MarkCommand(parseTaskNumber(input, "mark"));
-            case "unmark":
-                return new UnmarkCommand(parseTaskNumber(input, "unmark"));
-            case "delete":
-                return new DeleteCommand(parseTaskNumber(input, "delete"));
-            case "todo":
-                return parseAddTodo(input);
-            case "deadline":
-                return parseAddDeadline(input);
-            case "event":
-                return parseAddEvent(input);
-            case "find":
-                return parseFindCommand(input);
-            default:
-                throw new LebronException("I don't know what '" + input + "' means, my guy. "
-                        + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(parseTaskNumber(input, "mark"));
+        case "unmark":
+            return new UnmarkCommand(parseTaskNumber(input, "unmark"));
+        case "delete":
+            return new DeleteCommand(parseTaskNumber(input, "delete"));
+        case "todo":
+            return parseAddTodo(input);
+        case "deadline":
+            return parseAddDeadline(input);
+        case "event":
+            return parseAddEvent(input);
+        case "find":
+            return parseFindCommand(input);
+        default:
+            throw new LebronException("I don't know what '" + input + "' means, my guy. "
+                    + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
         }
     }
 
