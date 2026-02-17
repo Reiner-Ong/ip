@@ -42,11 +42,11 @@ public class Parser {
         case "delete":
             return new DeleteCommand(parseTaskNumber(input, "delete"));
         case "todo":
-            return parseAddTodo(input);
+            return parseTodo(input);
         case "deadline":
-            return parseAddDeadline(input);
+            return parseDeadline(input);
         case "event":
-            return parseAddEvent(input);
+            return parseEvent(input);
         case "find":
             return parseFindCommand(input);
         default:
@@ -73,7 +73,9 @@ public class Parser {
      * @return The AddCommand containing the parsed Todo task.
      * @throws LebronException If the description is empty.
      */
-    private static Command parseAddTodo(String input) throws LebronException {
+    private static Command parseTodo(String input) throws LebronException {
+        assert input.startsWith("todo") : "parseTodo should only be called for todo commands";
+
         if (input.equals("todo")) {
             throw new LebronException("You can't score without the ball! "
                     + "Give me a description: todo <description>");
@@ -93,7 +95,9 @@ public class Parser {
      * @return The AddCommand containing the parsed Deadline task.
      * @throws LebronException If the format is invalid.
      */
-    private static Command parseAddDeadline(String input) throws LebronException {
+    private static Command parseDeadline(String input) throws LebronException {
+        assert input.startsWith("deadline") : "parseDeadline should only be called for deadline commands";
+
         if (input.equals("deadline")) {
             throw new LebronException("Empty plays don't win championships! "
                     + "Try: deadline <description> /by <date>");
@@ -103,7 +107,10 @@ public class Parser {
             throw new LebronException("When's the buzzer? I need a deadline! "
                     + "Try: deadline <description> /by <date>");
         }
+
         String[] parts = content.split(" ?/by ?", 2);
+        assert parts.length == 2 : "parseDeadline should split into exactly 2 parts";
+
         String description = parts[0].trim();
         if (description.isEmpty()) {
             throw new LebronException("What's the play? Give me a description! "
@@ -123,7 +130,9 @@ public class Parser {
      * @return The AddCommand containing the parsed Event task.
      * @throws LebronException If the format is invalid.
      */
-    private static Command parseAddEvent(String input) throws LebronException {
+    private static Command parseEvent(String input) throws LebronException {
+        assert input.startsWith("event") : "parseEvent should only be called for event commands";
+
         if (input.equals("event")) {
             throw new LebronException("Can't show up to a game with no game plan! "
                     + "Try: event <description> /from <start> /to <end>");
@@ -137,7 +146,10 @@ public class Parser {
             throw new LebronException("When's the final buzzer? I need an end time! "
                     + "Try: event <description> /from <start> /to <end>");
         }
+
         String[] parts = content.split(" ?/from ?| ?/to ?", 3);
+        assert parts.length == 3 : "parseEvent should split into exactly 3 parts";
+
         String description = parts[0].trim();
         if (description.isEmpty()) {
             throw new LebronException("What's the event? Give me a description! "
@@ -200,14 +212,14 @@ public class Parser {
      */
     private static String getTaskNumberError(String command) {
         switch (command) {
-        case "mark":
-            return "Which play we running? Tell me the task number: mark <number>";
-        case "unmark":
-            return "Which one we taking back? Tell me the task number: unmark <number>";
-        case "delete":
-            return "Who we cutting from the roster? Tell me the task number: delete <number>";
-        default:
-            return "Tell me the task number!";
+            case "mark":
+                return "Which play we running? Tell me the task number: mark <number>";
+            case "unmark":
+                return "Which one we taking back? Tell me the task number: unmark <number>";
+            case "delete":
+                return "Who we cutting from the roster? Tell me the task number: delete <number>";
+            default:
+                return "Tell me the task number!";
         }
     }
 }

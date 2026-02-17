@@ -56,7 +56,9 @@ public class Task {
      * @return The string representation for saving to file.
      */
     public String toFileString() {
-        return (isDone ? "1" : "0") + " | " + description;
+        String result = (isDone ? "1" : "0") + " | " + description;
+        assert result.contains(" | ") : "File format should always contain delimiter";
+        return result;
     }
 
     @Override
