@@ -200,14 +200,14 @@ public class Parser {
      */
     private static String getTaskNumberError(String command) {
         switch (command) {
-            case "mark":
-                return "Which play we running? Tell me the task number: mark <number>";
-            case "unmark":
-                return "Which one we taking back? Tell me the task number: unmark <number>";
-            case "delete":
-                return "Who we cutting from the roster? Tell me the task number: delete <number>";
-            default:
-                return "Tell me the task number!";
+        case "mark":
+            return "Which play we running? Tell me the task number: mark <number>";
+        case "unmark":
+            return "Which one we taking back? Tell me the task number: unmark <number>";
+        case "delete":
+            return "Who we cutting from the roster? Tell me the task number: delete <number>";
+        default:
+            return "Tell me the task number!";
         }
     }
 }
