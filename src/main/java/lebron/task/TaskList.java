@@ -1,6 +1,7 @@
 package lebron.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import lebron.LebronException;
 
@@ -123,13 +124,9 @@ public class TaskList {
      * @return An ArrayList of tasks that match the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
