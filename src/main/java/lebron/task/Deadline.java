@@ -32,6 +32,15 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the due date of this deadline.
+     *
+     * @return The due date as a LocalDate.
+     */
+    public LocalDate getBy() {
+        return this.by;
+    }
+
     @Override
     public String toFileString() {
         return "D | " + super.toFileString() + " | " + by.toString();

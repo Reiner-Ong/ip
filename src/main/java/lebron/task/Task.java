@@ -51,6 +51,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns whether this task is marked as done.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns the file format representation of this task.
      *
      * @return The string representation for saving to file.

@@ -116,6 +116,23 @@ public class ResponseFormatter {
     }
 
     /**
+     * Formats a message when a task is updated.
+     *
+     * @param oldTask The task before the update.
+     * @param newTask The task after the update.
+     * @return The response lines.
+     */
+    public static ArrayList<String> respondTaskUpdated(Task oldTask, Task newTask) {
+        ArrayList<String> response = new ArrayList<>();
+
+        response.add("Adjusted the game plan! Task updated:");
+        response.add("  Before: " + oldTask);
+        response.add("  After:  " + newTask);
+
+        return response;
+    }
+
+    /**
      * Formats the list of found tasks.
      *
      * @param tasks The list of found tasks to format.

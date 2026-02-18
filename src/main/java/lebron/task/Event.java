@@ -39,6 +39,24 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the start date of this event.
+     *
+     * @return The start date as a LocalDate.
+     */
+    public LocalDate getFrom() {
+        return this.from;
+    }
+
+    /**
+     * Returns the end date of this event.
+     *
+     * @return The end date as a LocalDate.
+     */
+    public LocalDate getTo() {
+        return this.to;
+    }
+
     @Override
     public String toFileString() {
         return "E | " + super.toFileString() + " | "
