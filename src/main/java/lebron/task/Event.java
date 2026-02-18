@@ -39,10 +39,38 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the start date of this event.
+     *
+     * @return The start date as a LocalDate.
+     */
+    public LocalDate getFrom() {
+        return this.from;
+    }
+
+    /**
+     * Returns the end date of this event.
+     *
+     * @return The end date as a LocalDate.
+     */
+    public LocalDate getTo() {
+        return this.to;
+    }
+
     @Override
     public String toFileString() {
         return "E | " + super.toFileString() + " | "
                 + from.toString() + " | " + to.toString();
+    }
+
+    @Override
+    public Task clone() {
+        try {
+            return new Event(this.description, this.from.toString(), this.to.toString());
+        } catch (LebronException e) {
+            assert false : "Cloning an existing Event should never throw an exception";
+            return null;
+        }
     }
 
     @Override

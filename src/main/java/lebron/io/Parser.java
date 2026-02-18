@@ -2,9 +2,11 @@ package lebron.io;
 
 import lebron.LebronException;
 import lebron.command.AddCommand;
+import lebron.command.CloneCommand;
 import lebron.command.Command;
 import lebron.command.DeleteCommand;
 import lebron.command.ExitCommand;
+import lebron.command.UpdateCommand;
 import lebron.command.FindCommand;
 import lebron.command.ListCommand;
 import lebron.command.MarkCommand;
@@ -49,6 +51,10 @@ public class Parser {
             return parseEvent(input);
         case "find":
             return parseFindCommand(input);
+        case "clone":
+            return new CloneCommand(parseTaskNumber(input, "clone"));
+        case "update":
+            return parseUpdateCommand(input);
         default:
             throw new LebronException("I don't know what '" + input + "' means, my guy. "
                     + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
@@ -205,6 +211,75 @@ public class Parser {
     }
 
     /**
+     * Parses an update command and returns the corresponding UpdateCommand.
+     * Fields not provided by the user are passed as null, meaning they will be
+     * preserved from the original task.
+     *
+     * @param input The user input string.
+     * @return The UpdateCommand with the parsed index and field values.
+     * @throws LebronException If the format is invalid.
+     */
+    private static Command parseUpdateCommand(String input) throws LebronException {
+        assert input.startsWith("update") : "parseUpdateCommand should only be called for update commands";
+
+        if (input.equals("update") || input.strip().equals("update")) {
+            throw new LebronException("Who are we updating? "
+                    + "Try: update <number> [new description] [/by <date>] "
+                    + "or [/from <date> /to <date>]");
+        }
+
+        String content = input.substring(7).trim();
+        String[] firstSplit = content.split(" ", 2);
+
+        int index;
+        try {
+            index = Integer.parseInt(firstSplit[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new LebronException("'" + firstSplit[0] + "' ain't a number! "
+                    + "Give me a real number like 1, 2, or 3.");
+        }
+
+        if (firstSplit.length < 2 || firstSplit[1].trim().isEmpty()) {
+            throw new LebronException("What are we changing? "
+                    + "Provide at least one field to update.");
+        }
+
+        String rest = firstSplit[1].trim();
+        String newDescription = null;
+        String newBy = null;
+        String newFrom = null;
+        String newTo = null;
+
+        if (rest.contains("/from") && rest.contains("/to")) {
+            String[] parts = rest.split(" ?/from ?| ?/to ?", 3);
+            if (!parts[0].trim().isEmpty()) {
+                newDescription = parts[0].trim();
+            }
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new LebronException("When's tip-off? I need a start date after /from.");
+            }
+            if (parts.length < 3 || parts[2].trim().isEmpty()) {
+                throw new LebronException("When's the final buzzer? I need an end date after /to.");
+            }
+            newFrom = parts[1].trim();
+            newTo = parts[2].trim();
+        } else if (rest.contains("/by")) {
+            String[] parts = rest.split(" ?/by ?", 2);
+            if (!parts[0].trim().isEmpty()) {
+                newDescription = parts[0].trim();
+            }
+            if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                throw new LebronException("When's the buzzer? I need a date after /by.");
+            }
+            newBy = parts[1].trim();
+        } else {
+            newDescription = rest;
+        }
+
+        return new UpdateCommand(index, newDescription, newBy, newFrom, newTo);
+    }
+
+    /**
      * Returns the appropriate error message for missing task number.
      *
      * @param command The command name.
@@ -218,6 +293,8 @@ public class Parser {
                 return "Which one we taking back? Tell me the task number: unmark <number>";
             case "delete":
                 return "Who we cutting from the roster? Tell me the task number: delete <number>";
+            case "clone":
+                return "Who we tryna secretly clone? Tell me the task number: clone <number>";
             default:
                 return "Tell me the task number!";
         }

@@ -4,7 +4,7 @@ package lebron.task;
  * Represents a task with a description and completion status.
  * This is the base class for all task types in the Lebron chatbot.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -51,6 +51,15 @@ public class Task {
     }
 
     /**
+     * Returns whether this task is marked as done.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns the file format representation of this task.
      *
      * @return The string representation for saving to file.
@@ -60,6 +69,15 @@ public class Task {
         assert result.contains(" | ") : "File format should always contain delimiter";
         return result;
     }
+
+    /**
+     * Returns a clone of the current task as a fresh undone copy.
+     * Subclasses must return a new instance of their own type with the same
+     * description and task-specific fields, always with isDone set to false.
+     *
+     * @return A new undone Task with the same fields.
+     */
+    public abstract Task clone();
 
     @Override
     public String toString() {

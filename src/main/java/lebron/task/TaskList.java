@@ -135,6 +135,22 @@ public class TaskList {
     }
 
     /**
+     * Replaces the task at the specified index with a new task.
+     *
+     * @param index The 0-based index of the task to replace.
+     * @param task The new task to place at that index.
+     * @return The old task that was replaced.
+     * @throws LebronException If the index is invalid.
+     */
+    public Task set(int index, Task task) throws LebronException {
+        validateIndex(index);
+        assert index >= 0 && index < tasks.size() : "validateIndex should have caught invalid index";
+        Task oldTask = tasks.get(index);
+        tasks.set(index, task);
+        return oldTask;
+    }
+
+    /**
      * Validates that the given index is within the valid range.
      *
      * @param index The index to validate (0-based).
