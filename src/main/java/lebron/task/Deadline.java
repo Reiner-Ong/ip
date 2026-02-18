@@ -38,6 +38,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    public Task clone() {
+        try {
+            return new Deadline(this.description, this.by.toString());
+        } catch (LebronException e) {
+            assert false : "Cloning an existing Deadline should never throw an exception";
+            return null;
+        }
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
                 + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";

@@ -46,6 +46,16 @@ public class Event extends Task {
     }
 
     @Override
+    public Task clone() {
+        try {
+            return new Event(this.description, this.from.toString(), this.to.toString());
+        } catch (LebronException e) {
+            assert false : "Cloning an existing Event should never throw an exception";
+            return null;
+        }
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString()
                 + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))

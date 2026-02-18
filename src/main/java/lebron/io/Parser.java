@@ -2,6 +2,7 @@ package lebron.io;
 
 import lebron.LebronException;
 import lebron.command.AddCommand;
+import lebron.command.CloneCommand;
 import lebron.command.Command;
 import lebron.command.DeleteCommand;
 import lebron.command.ExitCommand;
@@ -49,6 +50,8 @@ public class Parser {
             return parseEvent(input);
         case "find":
             return parseFindCommand(input);
+        case "clone":
+            return new CloneCommand(parseTaskNumber(input, "clone"));
         default:
             throw new LebronException("I don't know what '" + input + "' means, my guy. "
                     + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
@@ -218,6 +221,8 @@ public class Parser {
                 return "Which one we taking back? Tell me the task number: unmark <number>";
             case "delete":
                 return "Who we cutting from the roster? Tell me the task number: delete <number>";
+            case "clone":
+                return "Who we tryna secretly clone? Tell me the task number: clone <number>";
             default:
                 return "Tell me the task number!";
         }
