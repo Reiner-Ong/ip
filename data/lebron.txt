@@ -1,3 +1,2 @@
-D | 1 | Trade AD away | 2026-05-14
-E | 0 | All Star Weekend | 2026-02-05 | 2026-02-08
-T | 0 | tacoTUESDAYYY
+T | 0 | buy LeBron's new shoes
+T | 0 | 2

@@ -1,5 +1,7 @@
+## Checking Style
 Where is was used: Across multiple comits starting from A-CheckStyle
 Prompt: Here is a list of rules to follow for the code base. Please check and flag out if any.
+
     Naming
     Packages: all lowercase; no edu.nus.*. Use project/group name root.
     Classes/enums: PascalCase nouns.
@@ -37,18 +39,52 @@ Prompt: Here is a list of rules to follow for the code base. Please check and fl
     First sentence starts with Returns/Creates/Adds/etc.
     Include @param, @return, @throws when useful.
     Comments properly indented.
+
 Output: Highlights some portion of the code where it violtated the style that both the Style checker and I missed out.
+
 Rationale: Sometimes style checker and I may not be able to catch all the coding mistakes, good to have extra layer of checks 
 
 
+## Clarifying JavaFx
 Where it was used: A-JavaFX / FXML setup
-Prompt: How do I wire up an FXML controller in JavaFX so that the controller class has access to UI components defined in the FXML file?
+Prompt:
+    
+    How do I wire up an FXML controller in JavaFX so that the controller class has access to UI components defined in the FXML file?
+
 Output: (Explanation of @FXML annotation, FXMLLoader, and how the controller is linked to the FXML file via fx:controller)
+
 Rationale: FXML and its controller binding mechanism were new to me, and reading the documentation alone was unclear. AI helped me understand the wiring quickly so I could implement the UI without spending too long on setup.
 
-
+## Help Writing JUnit Test Cases
 Where it was used: A-JUnit increment
-Prompt: I have written a few test cases to test behaviour of my Task Manager. Give me some other ideas for unit test that I could write to help cover more scenarios. 
+Prompt: 
+
+    I have written a few test cases to test behaviour of my Task Manager. Give me some other ideas for unit test that I could write to help cover more scenarios. 
+
 Output: (A very long extensive list of possible test cases)
+
 Rationale: While human logic can catch most cases, I do not know what I do not know, and hence it is better the AI gives ideas of test cases I could implement so that I can cover more bases. 
-  
+
+## Help Writing User Guide
+Where it was used: A-UserGuide
+Prompt:
+
+    Given the task and commands in the code base, how should I describe each command and task to the users comprehensively. 
+
+Output:
+    
+    Here's what you'd typically include in a user guide README:
+
+    Product name + one-liner — what is it and why would someone use it
+    Screenshot — a picture of the app running
+    Quick start — how to download and run it (Java version, jar file, command to run)
+    Feature list — one section per command, each with:
+    What it does
+    The exact format/syntax
+    A concrete example input
+    What the output looks like
+    Data/storage section — where does the save file go, what happens if it's missing
+    Command summary table — a quick-reference table of all commands and their formats at the bottom
+    For your bot specifically, you'd cover all 10 commands: todo, deadline, event, list, mark, unmark, delete, find, clone, and update.
+
+Rationale: Clearly structure what needs to be added to my UserGuide so that I do not miss out crucial details
