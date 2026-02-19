@@ -57,7 +57,7 @@ public class Parser {
             return parseUpdateCommand(input);
         default:
             throw new LebronException("I don't know what '" + input + "' means, my guy. "
-                    + "Try: todo, deadline, event, list, mark, unmark, delete, or bye.");
+                    + "Try: todo, deadline, event, list, mark, unmark, delete, find, clone, update, or bye.");
         }
     }
 
