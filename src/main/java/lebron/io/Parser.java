@@ -6,11 +6,11 @@ import lebron.command.CloneCommand;
 import lebron.command.Command;
 import lebron.command.DeleteCommand;
 import lebron.command.ExitCommand;
-import lebron.command.UpdateCommand;
 import lebron.command.FindCommand;
 import lebron.command.ListCommand;
 import lebron.command.MarkCommand;
 import lebron.command.UnmarkCommand;
+import lebron.command.UpdateCommand;
 import lebron.task.Deadline;
 import lebron.task.Event;
 import lebron.task.Todo;
@@ -287,16 +287,16 @@ public class Parser {
      */
     private static String getTaskNumberError(String command) {
         switch (command) {
-            case "mark":
-                return "Which play we running? Tell me the task number: mark <number>";
-            case "unmark":
-                return "Which one we taking back? Tell me the task number: unmark <number>";
-            case "delete":
-                return "Who we cutting from the roster? Tell me the task number: delete <number>";
-            case "clone":
-                return "Who we tryna secretly clone? Tell me the task number: clone <number>";
-            default:
-                return "Tell me the task number!";
+        case "mark":
+            return "Which play we running? Tell me the task number: mark <number>";
+        case "unmark":
+            return "Which one we taking back? Tell me the task number: unmark <number>";
+        case "delete":
+            return "Who we cutting from the roster? Tell me the task number: delete <number>";
+        case "clone":
+            return "Who we tryna secretly clone? Tell me the task number: clone <number>";
+        default:
+            return "Tell me the task number!";
         }
     }
 }
