@@ -4,7 +4,8 @@
 
 Lebron is a **desktop task manager** with the personality of LeBron James. Manage your todos, deadlines, and events — all while getting hyped up by the GOAT himself.
 
-**[INSERT: screenshot of the full app window here]**
+<img src="UpdateSS.png" width="600
+" alt="Update command"/>
 
 ---
 
@@ -36,7 +37,8 @@ Locked in! I added this to the game plan:
 Now you got 1 tasks on the board.
 ```
 
-<img src="TodoSS.png" width="400" alt="Todo command"/>
+<img src="TodoSS.png" width="600
+" alt="Todo command"/>
 
 ---
 
@@ -57,7 +59,8 @@ Locked in! I added this to the game plan:
 Now you got 2 tasks on the board.
 ```
 
-<img src="DeadlineSS.png" width="400" alt="Deadline command"/>
+<img src="DeadlineSS.png" width="600
+" alt="Deadline command"/>
 
 ---
 
@@ -78,7 +81,8 @@ Locked in! I added this to the game plan:
 Now you got 3 tasks on the board.
 ```
 
-<img src="EventSS.png" width="400" alt="Event command"/>
+<img src="EventSS.png" width="600
+" alt="Event command"/>
 
 ---
 
@@ -95,7 +99,8 @@ Here's the game plan:
 3.[E][ ] Lakers vs Warriors (from: 7pm to: 10pm)
 ```
 
-<img src="ListSS.png" width="400" alt="List command"/>
+<img src="ListSS.png" width="600
+" alt="List command"/>
 
 ---
 
@@ -115,7 +120,8 @@ That's a W! Task complete:
   [T][X] buy LeBron's new shoes
 ```
 
-<img src="MarkSS.png" width="400" alt="Mark command"/>
+<img src="MarkSS.png" width="600
+" alt="Mark command"/>
 
 ---
 
@@ -135,7 +141,8 @@ Aight, we running it back. Task unmarked:
   [T][ ] buy LeBron's new shoes
 ```
 
-<img src="UnMarkSS.png" width="400" alt="Unmark command"/>
+<img src="UnMarkSS.png" width="600
+" alt="Unmark command"/>
 
 ---
 
@@ -156,7 +163,8 @@ Traded away! I've removed this task:
 Now you got 2 tasks on the board.
 ```
 
-<img src="DeleteSS.png" width="400" alt="Delete command"/>
+<img src="DeleteSS.png" width="600
+" alt="Delete command"/>
 
 ---
 
@@ -176,7 +184,8 @@ Found these tasks in the game plan:
 1.[E][ ] Lakers vs Warriors (from: 7pm to: 10pm)
 ```
 
-<img src="FindSS.png" width="400" alt="Find command"/>
+<img src="FindSS.png" width="600
+" alt="Find command"/>
 
 ---
 
@@ -197,7 +206,8 @@ Locked in! I added this to the game plan:
 Now you got 3 tasks on the board.
 ```
 
-<img src="CloneSS.png" width="400" alt="Clone command"/>
+<img src="CloneSS.png" width="600
+" alt="Clone command"/>
 
 ---
 
@@ -221,7 +231,8 @@ Adjusted the game plan! Task updated:
   After:  [T][ ] buy LeBron's new jersey
 ```
 
-<img src="UpdateSS.png" width="400" alt="Update command"/>
+<img src="UpdateSS.png" width="600
+" alt="Update command"/>
 
 ---
 
@@ -235,7 +246,8 @@ Closes the application after a short delay.
 Alright, I'm out. Stay locked in, we got more wins to chase!
 ```
 
-<img src="ByeSS.png" width="400" alt="Bye command"/>
+<img src="ByeSS.png" width="600
+" alt="Bye command"/>
 
 ---
 
