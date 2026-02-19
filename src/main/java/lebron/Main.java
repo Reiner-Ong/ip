@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lebron.components.LebronDialog;
@@ -59,7 +60,11 @@ public class Main extends Application {
 
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("LeBron - Startup Error");
+            alert.setHeaderText("Failed to load the application.");
+            alert.setContentText("Could not load the UI: " + e.getMessage());
+            alert.showAndWait();
         }
     }
 

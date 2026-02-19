@@ -32,7 +32,7 @@ public abstract class DialogBox extends HBox {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load FXML: " + fxmlPath, e);
         }
 
         dialog.setText(s);
