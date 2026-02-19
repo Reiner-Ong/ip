@@ -1,6 +1,9 @@
 .root {
     main-color: #f5f0ff;       /* Light lavender background */
-    -fx-background-color: main-color;
+    -fx-background-image: url('../images/LebronBackground.jpg');
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
 
 .text-field {
@@ -25,14 +28,17 @@
     -fx-font-size: 20px;
 }
 
-.scroll-pane,
+.scroll-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
 .scroll-bar {
     -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-background-color: rgba(255, 255, 255, 0.85);
 }
 
 .scroll-bar .thumb {
