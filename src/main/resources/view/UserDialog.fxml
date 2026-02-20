@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<fx:root alignment="TOP_RIGHT"
+<fx:root alignment="CENTER_RIGHT"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
          prefWidth="400.0"
@@ -19,7 +19,7 @@
   </stylesheets>
   <children>
     <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity" HBox.hgrow="ALWAYS"/>
-    <StackPane styleClass="profile-picture-frame">
+    <StackPane styleClass="profile-picture-frame" minHeight="100" maxHeight="100" minWidth="100" maxWidth="100">
       <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
     </StackPane>
   </children>

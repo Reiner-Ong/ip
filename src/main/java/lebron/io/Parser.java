@@ -202,7 +202,7 @@ public class Parser {
      * @throws LebronException If the keyword is empty.
      */
     private static Command parseFindCommand(String input) throws LebronException {
-        String keyword = input.substring(5).trim();
+        String keyword = input.substring(4).trim();
         if (keyword.isEmpty()) {
             throw new LebronException("Gotta give me something to look for! "
                     + "Try: find <keyword>");

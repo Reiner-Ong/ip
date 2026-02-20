@@ -96,7 +96,7 @@ Displays all tasks currently on the board.
 Here's the game plan:
 1.[T][ ] buy LeBron's new shoes
 2.[D][ ] trade AD (by: Mar 1 2025)
-3.[E][ ] Lakers vs Warriors (from: 7pm to: 10pm)
+3.[E][ ] Lakers vs Warriors (from: Feb 1 2026 to: Feb 2 2026)
 ```
 
 <img src="ListSS.png" width="600
